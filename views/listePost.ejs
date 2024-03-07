@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Publications</title>
+    <!-- Import Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Style personnalisé si nécessaire */
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card-footer {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    <style>
+        /* Style personnalisé si nécessaire */
+        body {
+            padding-top: 20px;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Accueil</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produit/liste">Produits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categorie/liste">Catégories</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mt-5">Liste des Publications</h1>
+        <% posts.forEach(post => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= post.title %></h2>
+                    <% if (post.author) { %>
+                        <p>Par <%= post.author.username %></p>
+                    <% } else { %>
+                        <p>Auteur inconnu</p>
+                    <% } %>
+                </div>
+                <div class="card-body">
+                    <p><%= post.content %></p>
+                </div>
+                <div class="card-footer">
+                    <a href="/posts/<%= post._id %>/edit" class="btn btn-primary">Modifier</a>
+                    <form action="/posts/<%= post._id %>" method="POST">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>
